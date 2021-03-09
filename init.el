@@ -13,6 +13,11 @@
 (package-refresh-contents)
 (package-install 'use-package))
 
+(package-install 'auctex)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
 (use-package zenburn-theme
   :ensure t
   :config
