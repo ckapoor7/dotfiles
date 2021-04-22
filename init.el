@@ -13,18 +13,30 @@
 (package-refresh-contents)
 (package-install 'use-package))
 
-(package-install 'auctex)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
+(add-to-list 'load-path "/Users/chaitanya/.emacs.d/elpa/yasnippet-snippets-20210408.1234")
+(require 'yasnippet)
+(yas-global-mode 1)
 
+;;Zenburn theme
 (use-package zenburn-theme
   :ensure t
   :config
   (load-theme 'zenburn t))
 
+;;C++ autocomplete
+(use-package auto-complete
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+;;C++ font
+(use-package modern-cpp-font-lock
+:ensure t)
+
+;;Enable line numbers
 (global-linum-mode t)
 
+;;Python config
 (use-package elpy
   :ensure t
   :init
@@ -39,7 +51,7 @@
  '(custom-safe-themes
    (quote
     ("59b1d6fa127ccd7de28dc059422d675b91e82aebd1952e453c5b9687d68b693c" "e3dd6693e140e87e8926b1f13e82e89d3ee9afd3b387a6b0d0a51ca8471f910b" default)))
- '(package-selected-packages (quote (zenburn-theme use-package))))
+ '(package-selected-packages (quote (yasnippet-snippets zenburn-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
