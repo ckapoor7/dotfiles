@@ -31,7 +31,20 @@
   (global-flycheck-mode t))
 ;;C++ font
 (use-package modern-cpp-font-lock
-:ensure t)
+  :ensure t)
+;;Compile C++ code
+(defun code-compile ()
+  (interactive)
+  (unless (file-exists-p "Makefile")
+    (set (make-local-variable 'compile-command)
+     (let ((file (file-name-nondirectory buffer-file-name)))
+       (format "%s -o %s %s"
+           (if  (equal (file-name-extension file) "cpp") "g++" "gcc" )
+           (file-name-sans-extension file)
+           file)))
+    (compile compile-command)))
+(global-set-key [f9] 'code-compile)
+
 
 ;;Enable line numbers
 (global-linum-mode t)
@@ -65,5 +78,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
 
 
