@@ -42,6 +42,13 @@
   :init
   (elpy-enable))
 
+;;Magit integration
+(use-package magit
+  :ensure t
+  :init
+  (progn
+    (bind-key "C-x g" 'magit-status)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
