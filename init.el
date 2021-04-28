@@ -9,13 +9,34 @@
 '("melpa" . "http://melpa.org/packages/") t)
  
 (package-initialize)
+;; If there are no archived package contents, refresh them
+(when (not package-archive-contents)
+  (package-refresh-contents))
 (unless (package-installed-p 'use-package)
 (package-refresh-contents)
 (package-install 'use-package))
 
-(add-to-list 'load-path "/Users/chaitanya/.emacs.d/elpa/yasnippet-snippets-20210408.1234")
-(require 'yasnippet)
-(yas-global-mode 1)
+;; Installs packages
+;;
+;; myPackages contains a list of package names
+(defvar myPackages
+  '(better-defaults                 ;; Set up some better Emacs defaults
+    elpy                            ;; Emacs Lisp Python Environment
+    )
+  )
+
+
+;; Scans the list in myPackages
+;; If the package listed is not already installed, install it
+(mapc #'(lambda (package)
+          (unless (package-installed-p package)
+            (package-install package)))
+      myPackages)
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
 
 ;;Zenburn theme
 (use-package zenburn-theme
@@ -23,56 +44,15 @@
   :config
   (load-theme 'zenburn t))
 
-;;C++ autocomplete
-(use-package auto-complete
-(use-package flycheck
-  :ensure t
-  :init
-  (global-flycheck-mode t))
-;;C++ font
-(use-package modern-cpp-font-lock
-  :ensure t)
-;;Compile C++ code
-(defun code-compile ()
-  (interactive)
-  (unless (file-exists-p "Makefile")
-    (set (make-local-variable 'compile-command)
-     (let ((file (file-name-nondirectory buffer-file-name)))
-       (format "%s -o %s %s"
-           (if  (equal (file-name-extension file) "cpp") "g++" "gcc" )
-           (file-name-sans-extension file)
-           file)))
-    (compile compile-command)))
-(global-set-key [f9] 'code-compile)
-
-
 ;;Enable line numbers
 (global-linum-mode t)
 
-;;Python config
-(use-package elpy
-  :ensure t
-  :init
-  (elpy-enable))
+(elpy-enable)
 
-;; Use IPython for REPL
-(setq python-shell-interpreter "jupyter"
-      python-shell-interpreter-args "console --simple-prompt"
-      python-shell-prompt-detect-failure-warning nil)
-(add-to-list 'python-shell-completion-native-disabled-interpreters
-             "jupyter")
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
 
-;; Enable Flycheck
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
-
-;;Magit integration
-(use-package magit
-  :ensure t
-  :init
-  (progn
-    (bind-key "C-x g" 'magit-status)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -90,6 +70,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
 
 
 
