@@ -117,6 +117,30 @@
        (setq python-shell-interpreter "ipython3")
        (setq python-shell-interpreter-args "--simple-prompt -i"))
 
+;;version control(magit)
+ (use-package magit
+        :ensure
+        :diminish
+        :config
+
+        ;; ---------------------------------------------------------------------------
+        ;; whether to show word-granularity differences within diff hunks
+        (setq magit-diff-refine-hunk t)
+
+        ;; ---------------------------------------------------------------------------
+        ;; move untracked files section behind Unstaged changes section
+        (magit-add-section-hook 'magit-status-sections-hook
+                                'magit-insert-untracked-files
+                                'magit-insert-unpushed-commits t)
+
+        (remove-hook 'git-commit-finish-query-functions
+                     'git-commit-check-style-conventions)
+
+        :bind  (("C-c g" . magit-status)
+                ("C-c l" . magit-log)
+                ("C-h B" . magit-blame)))
+
+
 
 
 
@@ -179,7 +203,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
 
 
