@@ -53,6 +53,9 @@
 (require 'evil)
 (evil-mode 1)
 
+;;Add support for markdown
+(use-package markdown-mode
+  :ensure t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -70,8 +73,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
-
 
 
