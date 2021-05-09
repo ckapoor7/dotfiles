@@ -140,6 +140,7 @@
                 ("C-c l" . magit-log)
                 ("C-h B" . magit-blame)))
 
+
 ;;Highlight parenthese-like delimiters in a rainbow fashion
 ;;eases the reading when dealing with mismatched parentheses.
 (use-package rainbow-delimiters
@@ -147,6 +148,9 @@
   (prog-mode . rainbow-delimiters-mode))
 
 
+;;add a better status bar (aka-powerline)
+(require 'telephone-line)
+(telephone-line-mode 1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -187,7 +191,7 @@
  '(lsp-ui-doc-border "#FFFFEF")
  '(package-selected-packages
    (quote
-    (magit yasnippet-snippets zenburn-theme use-package)))
+    (telephone-line rainbow-delimiters magit yasnippet-snippets zenburn-theme use-package)))
  '(pos-tip-background-color "#4F4F4F")
  '(pos-tip-foreground-color "#FFFFEF")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#7F9F7F" "#4F4F4F" 0.2))
@@ -207,5 +211,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
 
