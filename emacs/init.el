@@ -149,8 +149,9 @@
 
 
 ;;add a better status bar (aka-powerline)
-(require 'telephone-line)
-(telephone-line-mode 1)
+(add-to-list 'load-path "~/.emacs.d/themes/emacs-powerline")
+(require 'powerline)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -211,4 +212,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
 
