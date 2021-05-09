@@ -70,7 +70,7 @@
        :config
        (setq blacken-line-length 80))
 
-     ;; -----------------------------------------------------------------------------
+ ;; -----------------------------------------------------------------------------
      ;; completion using jedi
      (use-package jedi
        :ensure
@@ -150,6 +150,9 @@
 
 ;;add a better status bar (aka-powerline)
 (add-to-list 'load-path "~/.emacs.d/themes/emacs-powerline")
+(custom-set-faces
+ '(mode-line ((t (:foreground "black" :background "#90ee90" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))
 (require 'powerline)
 
 
@@ -212,6 +215,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
 
