@@ -140,7 +140,11 @@
                 ("C-c l" . magit-log)
                 ("C-h B" . magit-blame)))
 
-
+;;Highlight parenthese-like delimiters in a rainbow fashion
+;;eases the reading when dealing with mismatched parentheses.
+(use-package rainbow-delimiters
+  :hook
+  (prog-mode . rainbow-delimiters-mode))
 
 
 
