@@ -147,6 +147,14 @@
   :hook
   (prog-mode . rainbow-delimiters-mode))
 
+;;add pdf tools
+(use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  )
+
 
 ;;add a better status bar (aka-powerline)
 (add-to-list 'load-path "~/.emacs.d/themes/emacs-powerline")
