@@ -155,6 +155,73 @@
   (setq-default pdf-view-display-size 'fit-page)
   )
 
+;;custom LaTeX functions
+
+
+(defun try/TeX-command-save-buffer-and-run-all ()
+    "Save the buffer and run TeX-command-run-all"
+    (interactive)
+    (let (TeX-save-query) (TeX-save-document (TeX-master-file)))
+    (TeX-command-run-all nil))
+
+;; copied ivy-bibtex and modified it to cite action
+(defun try/ivy-bibtex-cite (&optional arg local-bib)
+  "Search BibTeX entries using ivy.
+
+With a prefix ARG the cache is invalidated and the bibliography
+reread.
+
+If LOCAL-BIB is non-nil, display that the BibTeX entries are read
+from the local bibliography.  This is set internally by
+`ivy-bibtex-with-local-bibliography'."
+  (interactive "P")
+  (when arg
+    (bibtex-completion-clear-cache))
+  (bibtex-completion-init)
+  (let* ((candidates (bibtex-completion-candidates))
+          (key (bibtex-completion-key-at-point))
+          (preselect (and key
+                          (cl-position-if (lambda (cand)
+                                            (member (cons "=key=" key)
+                                                    (cdr cand)))
+                                          candidates))))
+    (ivy-read (format "Insert citation %s: " (if local-bib " (local)" ""))
+              candidates
+              :preselect preselect
+              :caller 'ivy-bibtex
+              :history 'ivy-bibtex-history
+              :action 'ivy-bibtex-insert-citation)))
+
+(defun try/latex-mode-setup ()
+  (require 'company-reftex)
+        (turn-on-reftex)
+        (require 'company-auctex)
+        (require 'company-math)
+(setq-local company-backends
+      
+    (append '(
+                              (company-reftex-labels
+                                company-reftex-citations)
+              (company-math-symbols-unicode company-math-symbols-latex company-latex-commands)
+              (company-auctex-macros company-auctex-symbols company-auctex-environments)
+              company-ispell
+              )
+            company-backends)))
+
+
+
+(defun try/counsel-insert-file-path ()
+  "Insert relative file path using counsel minibuffer"
+  (interactive)
+  (unless (featurep 'counsel) (require 'counsel))
+  (ivy-read "Insert filename: " 'read-file-name-internal
+            :matcher #'counsel--find-file-matcher
+            :action
+            (lambda (x)
+              (insert (file-relative-name x)))))
+
+
+
 
 ;;add a better status bar (aka-powerline)
 (add-to-list 'load-path "~/.emacs.d/themes/emacs-powerline")
