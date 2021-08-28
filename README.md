@@ -4,4 +4,4 @@ Other than being *much* faster than vanilla emacs, installing and configuring pa
 Another really great feauture that got me was the version control system (```magit```), which is a "*porcelain* ```git```". Files are tracked locally which eases workflow quite a bit.\
 I have left the old emacs configuration in this repository for sentimental purposes (I guess?) or maybe in the very **rare** event where I would want to revert back to this (although unlikely).
 
-![rice](https://github.com/ckapoor7/dotfiles/blob/main/2021-08-03-190533_2304x1440_scrot.png)
+![rice](https://github.com/ckapoor7/dotfiles/blob/main/2021-08-28-151808_2304x1440_scrot.png)
